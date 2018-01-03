@@ -1,0 +1,27 @@
+{
+  "name": "provachat",
+  "version": "1.0.0",
+  "description": "provachat esame es rest mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enricobontorin/provaChat.git"
+  },
+  "keywords": [
+    "prova",
+    "chat"
+  ],
+  "author": "enrico bontorin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/enricobontorin/provaChat/issues"
+  },
+  "homepage": "https://github.com/enricobontorin/provaChat#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^5.0.0-rc1"
+  }
+}
