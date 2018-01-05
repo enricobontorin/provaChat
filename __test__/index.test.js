@@ -30,10 +30,10 @@ const postUser = function (newUser) {
 }
 
 const example_new_user=  {
-    "uid": "ps1",
-    "user_name": "paolo",
-    "user_sur": "santi",
-    "psw": "paolosantips"
+    "uid": "lb1",
+    "user_name": "luca",
+    "user_sur": "boffo",
+    "psw": "lucaboffo1"
 }
 
 test('postUser', () => {
@@ -142,8 +142,8 @@ const postRoom = function (newRoom) {
 }
 
 const example_new_room=  {
-    "rid": "r_id6",
-    "room_name": "room_6",
+    "rid": "r_id8",
+    "room_name": "room_8",
 
 }
 
@@ -203,7 +203,8 @@ test('getRooms', () => {
             expect(getRoomsResponseJson[2].rid).toEqual("r_id3")
             expect(getRoomsResponseJson[3].rid).toEqual("r_id4")
             expect(getRoomsResponseJson[4].rid).toEqual("r_id5")
-          })
+          }) /*Bisognerebbe controllarle tutte, ma in questo caso è dura senza un delete sulle room
+          visto che ogni volta che eseguiamo il test carica una stanza*/
 });
 
 
@@ -260,4 +261,53 @@ test('postMsg', () => {
         .then(postResponseJson => {
             expect(postResponseJson.rid).toEqual(example_new_msg.rid)
           });
+});
+
+/*DELETE aggiuntiva*/
+const deleteUser = function (userID) {
+    var deleteUserPath = chatRoot + "/user/" + userID;
+    return fetch(deleteUserPath, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }//,
+    })
+}
+
+
+test('deleteUser', () => {
+    /*return deleteAssignments(exampleAssignment_post_delete.assignmentID)
+    .then(deleteResponse => {console.log(deleteResponse.status); return deleteResponse.json()})
+    .then(deleteResponseJson => {
+
+        expect(deleteResponseJson.message).toEqual("Successfully deleted")
+      });*/
+      var uid =  "lb1";
+      return deleteUser(uid)
+      .then(deleteResponse => {expect(deleteResponse.status).toBe(200)})
+});
+
+const deleteRoom = function (roomID) {
+    var deleteRoomPath = chatRoot + "/room/" + roomID;
+    return fetch(deleteRoomPath, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }//,
+    })
+}
+
+
+test('deleteRoom', () => {
+    /*return deleteAssignments(exampleAssignment_post_delete.assignmentID)
+    .then(deleteResponse => {console.log(deleteResponse.status); return deleteResponse.json()})
+    .then(deleteResponseJson => {
+
+        expect(deleteResponseJson.message).toEqual("Successfully deleted")
+      });*/
+      var rid =  "r_id8";
+      return deleteRoom(rid)
+      .then(deleteResponse => {expect(deleteResponse.status).toBe(200)})
 });

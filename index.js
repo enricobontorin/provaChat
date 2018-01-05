@@ -120,6 +120,31 @@ router.route('/user/:_id')
         }
       });//closefind
   });//closeput
+    // delete the assignment with this id
+
+  router.route('/user/:uid')
+  // (accessed at DELETE http://localhost:8080/api/chat/user/:uid)
+    .delete(function (req, res) {
+        User.remove({
+            uid: req.params.uid
+        }, function (err, user) {
+            if (err) {
+              //console.log("err");
+                        res.status(500).send(err)
+                    }
+            if (user.n != 0) {
+                  res.status(200);
+                  res.json({ message: 'Successfully deleted' });
+                  console.log("user");
+            }
+            else {  // In case no assignment was found with the given query
+                res.status(404);
+                res.json({ message: 'No user found' });
+                console.log("else");
+            }
+
+        });
+    });
 
   // route /room
   router.route('/room')
@@ -160,6 +185,30 @@ router.route('/user/:_id')
             }
           });//closefind
       });//closeput
+
+    router.route('/room/:rid')
+      // (accessed at DELETE http://localhost:8080/api/chat/room/:rid)
+      .delete(function (req, res) {
+          Room.remove({
+              rid: req.params.rid //in questo caso UDI non è il vero id ATTENTO
+          }, function (err, room) {
+              if (err) {
+                //console.log("err");
+                          res.status(500).send(err)
+                      }
+              if (room.n != 0) {
+                    res.status(200);
+                    res.json({ message: 'Successfully deleted' });
+                    //console.log("room");
+              }
+              else {  // In case no assignment was found with the given query
+                  res.status(404);
+                  res.json({ message: 'No user found' });
+                  //console.log("else");
+              }
+
+          });
+      });
 
     // route /rooms
     router.route('/rooms')
